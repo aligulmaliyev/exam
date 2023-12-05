@@ -2,7 +2,7 @@ export interface ILesson {
   id: number;
   lessonNumber: number;
   lessonName: string;
-  class: number;
+  classNumber: number;
   teacherName: string;
   teacherLastName: string;
 }

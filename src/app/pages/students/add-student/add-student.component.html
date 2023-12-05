@@ -1,33 +1,27 @@
 <h1 mat-dialog-title>Add Student</h1>
 <div mat-dialog-content>
-  <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
+  <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
     <div class="form">
       <mat-form-field appearance="fill">
-        <mat-label>Lesson Number</mat-label>
-        <input type="number" name="lessonNumber" ngModel matInput />
+        <mat-label>Student No</mat-label>
+        <input type="number" name="studentNo" formControlName="studentNo" matInput />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Lesson Name</mat-label>
-        <input type="text" name="lessonName" ngModel matInput />
+        <mat-label>Name</mat-label>
+        <input type="text" name="name" formControlName="name" matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Last Name</mat-label>
+        <input type="text" name="lastName" formControlName="lastName" matInput />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Class Number</mat-label>
-        <input type="number" name="class" ngModel matInput />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Teacher Name</mat-label>
-        <input type="text" name="teacherName" ngModel matInput />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Teacher Last Name</mat-label>
-        <input type="text" name="teacherLastName" ngModel matInput />
+        <input type="text" name="classNumber" formControlName="classNumber" matInput />
       </mat-form-field>
     </div>
-
     <div mat-dialog-actions align="end">
       <button mat-button mat-dialog-close>Cancel</button>
       <button mat-button type="submit" cdkFocusInitial>Submit</button>

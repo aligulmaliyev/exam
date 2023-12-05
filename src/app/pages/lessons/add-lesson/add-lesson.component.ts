@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { ILesson } from '../../../models/lesson';
 
 @Component({
@@ -11,11 +11,26 @@ import { ILesson } from '../../../models/lesson';
   standalone: true,
   templateUrl: './add-lesson.component.html',
   styleUrl: './add-lesson.component.scss',
-  imports: [MatDialogModule, MatButtonModule,FormsModule,MatFormFieldModule, MatInputModule],
+  imports: [MatDialogModule, MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
 })
 
 export class AddLessonComponent {
-  onSubmit(formData:any) {
-    console.log(formData);
+  lessonForm = new FormGroup({
+    lessonNumber: new FormControl(''),
+    lessonName: new FormControl(''),
+    classNumber: new FormControl(''),
+    teacherName: new FormControl(''),
+    teacherLastName: new FormControl(''),
+  });
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any){}
+
+  ngOnInit() {
+    this.lessonForm.patchValue(this.data)
+  }
+
+
+  onSubmit() {
+    console.log(this.lessonForm.value);
   }
 }

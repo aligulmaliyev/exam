@@ -2,13 +2,14 @@
   mat-raised-button
   color="primary"
   (click)="openDialog()"
-  class="addLesson"
+  class="add-button"
 >
   Add Lesson
 </button>
+<button (click)="onDelete(2)">hi</button>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>No.</th>
+    <th mat-header-cell *matHeaderCellDef>#.</th>
     <td mat-cell *matCellDef="let element">{{ element.id }}</td>
   </ng-container>
 
@@ -22,9 +23,9 @@
     <td mat-cell *matCellDef="let element">{{ element.lessonName }}</td>
   </ng-container>
 
-  <ng-container matColumnDef="class">
+  <ng-container matColumnDef="classNumber">
     <th mat-header-cell *matHeaderCellDef>Class Number</th>
-    <td mat-cell *matCellDef="let element">{{ element.class }}</td>
+    <td mat-cell *matCellDef="let element">{{ element.classNumber }}</td>
   </ng-container>
 
   <ng-container matColumnDef="teacherName">
@@ -36,6 +37,19 @@
     <th mat-header-cell *matHeaderCellDef>Teacher Last Name</th>
     <td mat-cell *matCellDef="let element">{{ element.teacherLastName }}</td>
   </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary" (click)="onEdit(element)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" (click)="onDelete(element.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>

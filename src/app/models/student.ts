@@ -1,7 +1,7 @@
 export interface IStudent {
   id: number;
-  no: number;
+  studentNo: number;
   name: string;
   lastName: string;
-  classNumber: string;
+  classNumber: number;
 }
