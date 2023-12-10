@@ -4,7 +4,12 @@
     <div class="form">
       <mat-form-field appearance="fill">
         <mat-label>Student No</mat-label>
-        <input type="number" name="studentNo" formControlName="studentNo" matInput />
+        <input
+          type="number"
+          name="studentNo"
+          formControlName="studentNo"
+          matInput
+        />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
@@ -14,17 +19,46 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Last Name</mat-label>
-        <input type="text" name="lastName" formControlName="lastName" matInput />
+        <input
+          type="text"
+          name="lastName"
+          formControlName="lastName"
+          matInput
+        />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Class Number</mat-label>
-        <input type="text" name="classNumber" formControlName="classNumber" matInput />
+        <input
+          type="text"
+          name="classNumber"
+          formControlName="classNumber"
+          matInput
+        />
       </mat-form-field>
     </div>
     <div mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close  mat-raised-button >Cancel</button>
-      <button mat-button type="submit" color="primary" mat-raised-button cdkFocusInitial>Submit</button>
+      <button
+        mat-button
+        mat-dialog-close
+        mat-raised-button
+        [disabled]="loading"
+      >
+        Cancel
+      </button>
+      <button
+        mat-button
+        type="submit"
+        color="primary"
+        mat-raised-button
+        cdkFocusInitial
+        [disabled]="loading"
+      >
+        Submit
+        <mat-icon *ngIf="loading">
+          <mat-spinner color="primary" diameter="18"> </mat-spinner>
+        </mat-icon>
+      </button>
     </div>
   </form>
 </div>

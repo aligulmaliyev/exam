@@ -4,3 +4,4 @@ export interface IStudent {
   surname: string;
   classNumber: number;
 }
+export type StudentKeys = keyof IStudent;

@@ -3,53 +3,45 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { AddLessonComponent } from './add-lesson/add-lesson.component';
-import { ILesson } from '../../models/lesson';
-import { GeneralService } from '../../services/GeneralService';
+import { ILesson, LessonKeys } from '@models/lesson';
 import { MatIconModule } from '@angular/material/icon';
-import { lessonColumns } from '../../constants/tableColumns';
+import { LessonService } from '@services/LessonService';
 
 @Component({
   selector: 'app-lessons',
   standalone: true,
   imports: [MatTableModule, MatButtonModule, MatDialogModule, MatIconModule],
   templateUrl: './lessons.component.html',
-  styleUrls: ['./lessons.components.scss'],
+  providers:[LessonService]
 })
-
 export class Lessons {
   dataSource: ILesson[] = [];
-  editData: ILesson = {} as ILesson;
-  displayedColumns: string[] = lessonColumns;
+  displayedColumns: LessonKeys[] = [
+    'lessonCode',
+    'classNumber',
+    'title',
+    'teacherName',
+    'teacherSurname',
+  ];
 
-  constructor(public dialog: MatDialog, private gereralService: GeneralService) { }
+  constructor(public dialog: MatDialog, private lessonService: LessonService) {}
 
   ngOnInit() {
-    this.getAllLessons()
+    this.getAllLessons();
   }
 
   openModal() {
-    this.dialog.open(AddLessonComponent, { data: this.editData });
+    this.dialog.open(AddLessonComponent);
   }
 
   getAllLessons() {
-    this.gereralService.getAll('/api/Lesson/GetLessons').subscribe({
+    this.lessonService.getAllLessons('/Lesson/GetLessons').subscribe({
       next: (response: any) => {
-        this.dataSource = response
-      }
-    })
-  }
-
-  onEdit(data: ILesson) {
-    this.editData = data;
-    this.openModal()
-  }
-
-
-  onDelete(id: number | string) {
-    // this.gereralService.delete('').subscribe({
-    //   next: (response) => {
-    //     this.getAllLessons()
-    //   }
-    // })
+        this.dataSource = response;
+      },
+      error(err) {
+        console.log('error');
+      },
+    });
   }
 }

@@ -1,21 +1,36 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import {
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { GeneralService } from '../../../services/GeneralService';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
+import { LessonService } from '@services/LessonService';
+import { GenericService } from '@services/GenericService';
 
 @Component({
   selector: 'app-add-lesson',
   standalone: true,
   templateUrl: './add-lesson.component.html',
-  styleUrl: './add-lesson.component.scss',
-  imports: [MatDialogModule, MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
-  providers:[GeneralService]
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatProgressSpinnerModule
+  ],
+  providers:[LessonService,GenericService]
 })
-
 export class AddLessonComponent {
+  loading = false;
   lessonForm = new FormGroup({
     lessonCode: new FormControl(),
     title: new FormControl(''),
@@ -24,15 +39,23 @@ export class AddLessonComponent {
     teacherSurname: new FormControl(''),
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private generalService: GeneralService) { }
-
-  ngOnInit() {
-    if (this.data.lessonCode)
-      this.lessonForm.patchValue(this.data)
-  }
-
+  constructor(
+    private dialogRef: MatDialogRef<AddLessonComponent>,
+    private lessonSercvice: LessonService
+  ) {}
 
   onSubmit() {
-    this.generalService.post('/api/Lesson/PostLesson', this.lessonForm.value)
+    this.loading = true
+    this.lessonSercvice
+      .saveLesson('/Lesson/PostLesson', this.lessonForm.value)
+      .subscribe({
+        next: (response: any) => {
+          this.dialogRef.close();
+          this.loading = false
+        },
+        error: (error) => {
+          this.loading = false;
+        }
+      });
   }
 }

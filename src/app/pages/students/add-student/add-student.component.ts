@@ -1,20 +1,36 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import {
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { IStudent } from '../../../models/student';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
+import { StudentService } from '@services/StudentService';
+import { GenericService } from '@services/GenericService';
 
 @Component({
   selector: 'app-add-student',
   standalone: true,
   templateUrl: './add-student.component.html',
-  styleUrl: './add-student.component.scss',
-  imports: [MatDialogModule, MatButtonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+  ],
+  providers: [StudentService,GenericService],
 })
-
-export class AddStudentComponent{
+export class AddStudentComponent {
+  loading = false;
   studentForm = new FormGroup({
     studentNo: new FormControl(''),
     name: new FormControl(''),
@@ -22,14 +38,23 @@ export class AddStudentComponent{
     classNumber: new FormControl(''),
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  ngOnInit() {
-    this.studentForm.patchValue(this.data)
-  }
-
+  constructor(
+    private dialogRef: MatDialogRef<AddStudentComponent>,
+    private studentService: StudentService
+  ) {}
 
   onSubmit() {
-    console.log(this.studentForm.value);
+    this.loading = true;
+    this.studentService
+      .saveStudent('/Student/PostStudent', this.studentForm.value)
+      .subscribe({
+        next: () => {
+          this.dialogRef.close();
+          this.loading = false;
+        },
+        error: (error) => {
+          this.loading = false;
+        },
+      });
   }
 }

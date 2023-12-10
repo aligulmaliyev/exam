@@ -2,82 +2,47 @@ import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { AddExamComponent } from './add-exam/add-exam.component';
-import { IExam } from '../../models/exam';
-import { GeneralService } from '../../services/GeneralService';
-import { baseUrl } from '../../constants/api';
 import { MatIconModule } from '@angular/material/icon';
-
-
-const ELEMENT_DATA: IExam[] = [
-  {
-    id: 1,
-    lessonCode: "22",
-    studentNumber: 2,
-    dateOfExam: "10.02.2023",
-    result: 3
-  },
-  {
-    id: 2,
-    lessonCode: "22",
-    studentNumber: 2,
-    dateOfExam: "10.02.2023",
-    result: 3
-  },
-];
+import { examColumns } from '@constants/tableColumns';
+import { AddExamComponent } from './add-exam/add-exam.component';
+import { ExamKeys, IExam } from '@models/exam';
+import { ExamService } from '@services/ExamService';
 
 @Component({
   selector: 'app-exams',
   standalone: true,
   imports: [MatTableModule, MatButtonModule, MatDialogModule, MatIconModule],
   templateUrl: './exams.component.html',
-  styleUrls: ['./exams.components.scss'],
+  providers: [ExamService],
 })
 export class Exams {
-  displayedColumns: string[] = [
+  dataSource: IExam[] = [];
+  displayedColumns: ExamKeys[] = [
     'id',
-    'classNumber',
-    'studentNo',
-    'date',
-    'grade',
-    'action'
+    'lessonCode',
+    'studentNumber',
+    'dateOfExam',
+    'result',
   ];
-  dataSource = ELEMENT_DATA;
-  editData: IExam = {} as IExam;
 
-  constructor(public dialog: MatDialog, private gereralService: GeneralService) { }
+  constructor(public dialog: MatDialog, private examService: ExamService) {}
 
   ngOnInit() {
-    this.getAllExams()
+    this.getAllExams();
   }
 
-
-
   openDialog() {
-    this.dialog.open(AddExamComponent, {
-      data: this.editData
-    });
+    this.dialog.open(AddExamComponent);
   }
 
   getAllExams() {
-    this.gereralService.getAll(`${baseUrl}`).subscribe({
+    this.examService.getAllExams('/Exam/GetExams').subscribe({
       next: (response: any) => {
-        this.dataSource = response
-      }
-    })
-  }
-  
-  onEdit(data: IExam) {
-    this.editData = data;
-    this.openDialog()
-  }
-
-
-  onDelete(id: number | string) {
-    this.gereralService.delete(`${baseUrl}/${id}`).subscribe({
-      next: (response) => {
-        this.getAllExams()
-      }
-    })
+        this.dataSource = response;
+      },
+      error(err) {
+        console.log('error');
+      },
+    });
   }
 }

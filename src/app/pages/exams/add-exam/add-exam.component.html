@@ -1,31 +1,70 @@
-<h1 mat-dialog-title>Add Student</h1>
+<h1 mat-dialog-title>Add Exam</h1>
 <div mat-dialog-content>
- <form [formGroup]="examForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="examForm" (ngSubmit)="onSubmit()">
     <div class="form">
       <mat-form-field appearance="fill">
-        <mat-label>Class Number</mat-label>
-        <input type="number" name="classNumber" formControlName="classNumber" matInput />
+        <mat-label>Lesson</mat-label>
+        <mat-select name="lessonCode" formControlName="lessonCode">
+          @for (lesson of lessons; track lesson) {
+          <mat-option [value]="lesson.lessonCode">{{
+            lesson.title
+          }}</mat-option>
+          }
+        </mat-select>
       </mat-form-field>
-
       <mat-form-field appearance="fill">
-        <mat-label>Student No</mat-label>
-        <input type="text" name="studentNo" formControlName="studentNo" matInput />
+        <mat-label>Student</mat-label>
+        <mat-select name="studentNumber" formControlName="studentNumber">
+          @for (student of students; track student) {
+          <mat-option [value]="student.studentNumber">{{
+            student.firstName + " " + student.surname
+          }}</mat-option>
+          }
+        </mat-select>
       </mat-form-field>
-
       <mat-form-field appearance="fill">
         <mat-label>Date</mat-label>
-        <input type="date" name="date" formControlName="date" matInput />
+        <input
+          name="dateOfExam"
+          formControlName="dateOfExam"
+          matInput
+          [matDatepicker]="dateOfExam"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="dateOfExam"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #dateOfExam></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Grade</mat-label>
-        <input type="text" name="grade" formControlName="grade" matInput />
+        <mat-label>Result</mat-label>
+        <input type="text" name="result" formControlName="result" matInput />
       </mat-form-field>
     </div>
 
     <div mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close  mat-raised-button >Cancel</button>
-      <button mat-button type="submit" color="primary" mat-raised-button cdkFocusInitial>Submit</button>
+      <button
+        mat-button
+        mat-dialog-close
+        mat-raised-button
+        [disabled]="loading"
+      >
+        Cancel
+      </button>
+      <button
+        mat-button
+        type="submit"
+        color="primary"
+        mat-raised-button
+        cdkFocusInitial
+        [disabled]="loading"
+      >
+        Submit
+        <mat-icon *ngIf="loading">
+          <mat-spinner color="primary" diameter="18"> </mat-spinner>
+        </mat-icon>
+      </button>
     </div>
   </form>
 </div>

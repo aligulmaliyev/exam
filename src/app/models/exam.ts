@@ -5,3 +5,4 @@ export interface IExam {
     dateOfExam: string;
     result: number
 }
+export type ExamKeys = keyof IExam;

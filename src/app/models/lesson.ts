@@ -5,3 +5,5 @@ export interface ILesson {
   teacherName: string;
   teacherSurname: string;
 }
+
+export type LessonKeys = keyof ILesson;
