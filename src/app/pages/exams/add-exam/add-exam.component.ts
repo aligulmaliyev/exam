@@ -22,7 +22,7 @@ export class AddExamComponent {
     grade: new FormControl(''),
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any){}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.examForm.patchValue(this.data)

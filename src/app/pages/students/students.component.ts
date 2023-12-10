@@ -10,18 +10,16 @@ import {MatIconModule} from '@angular/material/icon';
 
 const ELEMENT_DATA: IStudent[] = [
   {
-    id: 1,
-    studentNo: 1,
+    studentNumber: 1,
     classNumber: 2,
-    name: 'Elcin',
-    lastName: 'Huseynov',
+    firstName: 'Elcin',
+    surname: 'Huseynov',
   },
   {
-    id: 2,
-    studentNo: 2242,
+    studentNumber: 2242,
     classNumber: 13,
-    name: 'Vasif',
-    lastName: 'Huseynov',
+    firstName: 'Vasif',
+    surname: 'Huseynov',
   },
 ];
 

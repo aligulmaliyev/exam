@@ -1,8 +1,7 @@
 export interface ILesson {
-  id: number;
-  lessonNumber: number;
-  lessonName: string;
+  lessonCode: number;
+  title: string;
   classNumber: number;
   teacherName: string;
-  teacherLastName: string;
+  teacherSurname: string;
 }

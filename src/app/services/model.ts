@@ -11,5 +11,4 @@ export interface IGeneralService {
     delete(url: string, data?: any,): Observable<any>;
 
     put(url: string, data: any,): Observable<any>;
-
 }

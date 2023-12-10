@@ -12,17 +12,17 @@ import { MatIconModule } from '@angular/material/icon';
 const ELEMENT_DATA: IExam[] = [
   {
     id: 1,
-    classNumber: "22",
-    studentNo: 2,
-    date: "10.02.2023",
-    grade: 3
+    lessonCode: "22",
+    studentNumber: 2,
+    dateOfExam: "10.02.2023",
+    result: 3
   },
   {
     id: 2,
-    classNumber: "22",
-    studentNo: 2,
-    date: "10.02.2023",
-    grade: 3
+    lessonCode: "22",
+    studentNumber: 2,
+    dateOfExam: "10.02.2023",
+    result: 3
   },
 ];
 

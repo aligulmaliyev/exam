@@ -1,7 +1,7 @@
 export interface IExam {
     id: number;
-    classNumber: string;
-    studentNo: number;
-    date: string;
-    grade: number;
+    lessonCode: string,
+    studentNumber: number;
+    dateOfExam: string;
+    result: number
 }

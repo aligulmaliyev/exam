@@ -1,50 +1,44 @@
 <button
   mat-raised-button
   color="primary"
-  (click)="openDialog()"
+  (click)="openModal()"
   class="add-button"
 >
   Add Lesson
 </button>
-<button (click)="onDelete(2)">hi</button>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>#.</th>
-    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="lessonNumber">
-    <th mat-header-cell *matHeaderCellDef>Lesson number</th>
-    <td mat-cell *matCellDef="let element">{{ element.lessonNumber }}</td>
-  </ng-container>
-
-  <ng-container matColumnDef="lessonName">
-    <th mat-header-cell *matHeaderCellDef>Lesson Name</th>
-    <td mat-cell *matCellDef="let element">{{ element.lessonName }}</td>
+  <ng-container matColumnDef="lessonCode">
+    <th mat-header-cell *matHeaderCellDef>Lesson code</th>
+    <td mat-cell *matCellDef="let lesson">{{ lesson.lessonCode }}</td>
   </ng-container>
 
   <ng-container matColumnDef="classNumber">
-    <th mat-header-cell *matHeaderCellDef>Class Number</th>
-    <td mat-cell *matCellDef="let element">{{ element.classNumber }}</td>
+    <th mat-header-cell *matHeaderCellDef>Lesson number</th>
+    <td mat-cell *matCellDef="let lesson">{{ lesson.classNumber }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>Class name</th>
+    <td mat-cell *matCellDef="let lesson">{{ lesson.title }}</td>
   </ng-container>
 
   <ng-container matColumnDef="teacherName">
-    <th mat-header-cell *matHeaderCellDef>Teacher Name</th>
-    <td mat-cell *matCellDef="let element">{{ element.teacherName }}</td>
+    <th mat-header-cell *matHeaderCellDef>Teacher name</th>
+    <td mat-cell *matCellDef="let lesson">{{ lesson.teacherName }}</td>
   </ng-container>
 
-  <ng-container matColumnDef="teacherLastName">
-    <th mat-header-cell *matHeaderCellDef>Teacher Last Name</th>
-    <td mat-cell *matCellDef="let element">{{ element.teacherLastName }}</td>
+  <ng-container matColumnDef="teacherSurname">
+    <th mat-header-cell *matHeaderCellDef>Teacher surname</th>
+    <td mat-cell *matCellDef="let lesson">{{ lesson.teacherSurname }}</td>
   </ng-container>
 
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
-    <td mat-cell *matCellDef="let element">
-      <button mat-icon-button color="primary" (click)="onEdit(element)">
+    <td mat-cell *matCellDef="let lesson">
+      <button mat-icon-button color="primary" (click)="onEdit(lesson)">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button color="primary" (click)="onDelete(element.id)">
+      <button mat-icon-button color="primary" (click)="onDelete(lesson.id)">
         <mat-icon>delete</mat-icon>
       </button>
     </td>

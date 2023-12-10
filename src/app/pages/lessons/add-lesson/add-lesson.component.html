@@ -3,17 +3,16 @@
   <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()">
     <div class="form">
       <mat-form-field appearance="fill">
-        <mat-label>Lesson Number</mat-label>
-        <input type="number" name="lessonNumber" formControlName="lessonNumber" matInput />
+        <mat-label>Lesson code</mat-label>
+        <input type="number" name="lessonCode" formControlName="lessonCode" matInput />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Lesson name</mat-label>
+        <input type="text" name="title" formControlName="title" matInput />
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Lesson Name</mat-label>
-        <input type="text" name="lessonName" formControlName="lessonName" matInput />
-      </mat-form-field>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Class Number</mat-label>
+        <mat-label>Class number</mat-label>
         <input type="number" name="classNumber" formControlName="classNumber" matInput />
       </mat-form-field>
 
@@ -23,14 +22,14 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill">
-        <mat-label>Teacher Last Name</mat-label>
-        <input type="text" name="teacherLastName" formControlName="teacherLastName" matInput />
+        <mat-label>Teacher surname</mat-label>
+        <input type="text" name="teacherSurname" formControlName="teacherSurname" matInput />
       </mat-form-field>
     </div>
 
     <div mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button type="submit" cdkFocusInitial>Submit</button>
+      <button mat-button mat-dialog-close  mat-raised-button >Cancel</button>
+      <button mat-button type="submit" color="primary" mat-raised-button cdkFocusInitial >Submit</button>
     </div>
   </form>
 </div>
