@@ -11,6 +11,10 @@ export class StudentService {
     return this.genericService.getAll(url);
   }
 
+  getStudentByClass(url: string, param: number) {
+    return this.genericService.get(`${url}?classNum=${param}`);
+  }
+
   saveStudent(url: string, data: any) {
     return this.genericService.post(url, data);
   }

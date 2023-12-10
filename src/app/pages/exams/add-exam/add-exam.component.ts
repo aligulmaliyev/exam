@@ -32,16 +32,16 @@ import { GenericService } from '@services/GenericService';
     MatIconModule,
     MatProgressSpinnerModule,
   ],
-  providers: [ExamService,GenericService,LessonService,StudentService],
+  providers: [ExamService, GenericService, LessonService, StudentService],
 })
 export class AddExamComponent {
   loading = false;
-  students: IStudent[] = [];
   lessons: ILesson[] = [];
+  students: IStudent[] = [];
 
   examForm = new FormGroup({
-    lessonCode: new FormControl(''),
-    studentNumber: new FormControl(''),
+    lessonCode: new FormControl(0),
+    studentNumber: new FormControl({ value: 0, disabled: true }),
     dateOfExam: new FormControl(''),
     result: new FormControl(''),
   });
@@ -55,18 +55,20 @@ export class AddExamComponent {
 
   ngOnInit(): void {
     this.getLessons();
-    this.getStudents();
   }
 
-  getStudents() {
-    this.studentService.getAllStudents('/Student/GetStudents').subscribe({
-      next: (result: any) => {
-        this.students = result;
-      },
-      error: (error) => {
-        console.log('error');
-      },
-    });
+  getStudents(classNumber: number) {
+    this.studentService
+      .getStudentByClass('/Student/GetStudents', classNumber)
+      .subscribe({
+        next: (result: any) => {
+          this.students = result;
+          this.examForm.get('studentNumber')?.enable();
+        },
+        error: (error) => {
+          console.log('error');
+        },
+      });
   }
 
   getLessons() {

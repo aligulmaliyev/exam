@@ -5,15 +5,16 @@ import { environment } from '../../environment/environment';
 @Injectable({
   providedIn: 'root',
 })
-
-export  class GenericService {
+export class GenericService {
   constructor(public httpClient: HttpClient) {}
 
   getAll(url: string) {
-    return this.httpClient.get(`${environment.baseUrl}/${url}`);
+    return this.httpClient.get(`${environment.baseUrl}${url}`);
   }
-
+  get(url: string) {
+    return this.httpClient.get(`${environment.baseUrl}${url}`);
+  }
   post(url: string, data: any) {
-    return this.httpClient.post(`${environment.baseUrl}/${url}`, data);
+    return this.httpClient.post(`${environment.baseUrl}${url}`, data);
   }
 }

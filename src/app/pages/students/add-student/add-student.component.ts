@@ -32,10 +32,10 @@ import { GenericService } from '@services/GenericService';
 export class AddStudentComponent {
   loading = false;
   studentForm = new FormGroup({
-    studentNo: new FormControl(''),
-    name: new FormControl(''),
-    lastName: new FormControl(''),
-    classNumber: new FormControl(''),
+    studentNumber: new FormControl(0),
+    firstName: new FormControl(''),
+    surname: new FormControl(''),
+    classNumber: new FormControl(0),
   });
 
   constructor(

@@ -3,7 +3,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { examColumns } from '@constants/tableColumns';
 import { AddExamComponent } from './add-exam/add-exam.component';
 import { ExamKeys, IExam } from '@models/exam';
 import { ExamService } from '@services/ExamService';

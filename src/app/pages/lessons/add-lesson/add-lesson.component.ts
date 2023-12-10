@@ -32,9 +32,9 @@ import { GenericService } from '@services/GenericService';
 export class AddLessonComponent {
   loading = false;
   lessonForm = new FormGroup({
-    lessonCode: new FormControl(),
+    lessonCode: new FormControl(0),
     title: new FormControl(''),
-    classNumber: new FormControl(),
+    classNumber: new FormControl(0),
     teacherName: new FormControl(''),
     teacherSurname: new FormControl(''),
   });
